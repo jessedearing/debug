@@ -6,4 +6,5 @@ RUN apt-get update && apt-get install -y dnsutils netcat curl vim zsh \
     && apt-get clean
 RUN echo set -o vi >> /etc/zsh/zshrc
 RUN mkdir -p /var/run/tmux
+ENV SHELL=/usr/bin/zsh
 ENTRYPOINT ["/usr/bin/zsh"]
