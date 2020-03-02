@@ -5,4 +5,5 @@ RUN apt-get update && apt-get install -y dnsutils netcat curl vim zsh \
     postgresql-client tmux \
     && apt-get clean
 RUN echo set -o vi >> /etc/zsh/zshrc
+RUN mkdir -p /var/run/tmux
 ENTRYPOINT ["/usr/bin/zsh"]
