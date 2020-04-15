@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y dnsutils netcat curl vim zsh \
     && echo "37e664e40bb31765572215cf262a5c9bbc7748d158d0db58dbec2d5e593b54d71586af77296eda1cec2a2230b1d27260c51f6410b83afeeafc3c5354c308b4c4 kubernetes-client-linux-amd64.tar.gz" |  sha512sum -c \
     && tar xzvf kubernetes-client-linux-amd64.tar.gz \
     && mv kubernetes/client/bin/kubectl /usr/local/bin/kubectl \
-    && rm -rf kubernetes/
+    && rm -rf kubernetes/ kubernetes-client-linux-amd64.tar.gz
 
 
 RUN echo set -o vi >> /etc/zsh/zshrc
