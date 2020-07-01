@@ -23,4 +23,4 @@ jobs:
       with:
         name: docker.pkg.github.com/jessedearing/debug
         username: jessedearing
-        password: ${{ secrets.GITHUB_TOKEN }}
+        password: ${{ secrets.GH_REGISTRY_PUSH_TOKEN }}
