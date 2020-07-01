@@ -1,6 +1,8 @@
 FROM ubuntu:latest
 
-RUN apt-get update && apt-get install -y dnsutils netcat curl vim zsh \
+ENV DEBIAN_FRONTEND=noninteractive
+RUN ln -snf /usr/share/zoneinfo/US/Pacific /etc/localtime && \
+    apt-get update && apt-get install -y dnsutils netcat curl vim zsh \
     net-tools strace dnstracer traceroute tcptraceroute iproute2 python3 \
     postgresql-client tmux awscli jq \
     && apt-get clean \
