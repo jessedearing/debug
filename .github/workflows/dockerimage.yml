@@ -12,9 +12,15 @@ jobs:
     - uses: actions/checkout@v1
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag jessedearing/debug:latest
-    - name: Publish the Docker image
+    - name: Publish the Docker image to Docker Hub
       uses: elgohr/Publish-Docker-Github-Action@master
       with:
         name: jessedearing/debug
         username: jessedearing
         password: ${{ secrets.DOCKER_PASSWORD }}
+    - name: Publish the Docker image to GitHub
+      uses: elgohr/Publish-Docker-Github-Action@master
+      with:
+        name: docker.pkg.github.com/jessedearing/debug
+        username: jessedearing
+        password: ${{ secrets.GITHUB_TOKEN }}
