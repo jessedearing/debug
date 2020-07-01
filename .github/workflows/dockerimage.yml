@@ -16,11 +16,12 @@ jobs:
         username: jessedearing
         password: ${{ secrets.DOCKER_PASSWORD }}
         repository: jessedearing/debug
-        tag_with_ref: false
+        tag_with_ref: true
     - name: Push to GitHub Registry
       uses: docker/build-push-action@v1
       with:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
+        registry: docker.pkg.github.com
         repository: jessedearing/debug/debug
-        tag_with_ref: false
+        tag_with_ref: true
