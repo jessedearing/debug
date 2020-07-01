@@ -10,17 +10,17 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag jessedearing/debug:latest
-    - name: Publish the Docker image to Docker Hub
-      uses: elgohr/Publish-Docker-Github-Action@master
+    - name: Push to Docker Hub
+      uses: docker/build-push-action@v1
       with:
-        name: jessedearing/debug
         username: jessedearing
         password: ${{ secrets.DOCKER_PASSWORD }}
-    - name: Publish the Docker image to GitHub
-      uses: elgohr/Publish-Docker-Github-Action@master
+        repository: jessedearing/debug
+        tag_with_ref: false
+    - name: Push to GitHub Registry
+      uses: docker/build-push-action@v1
       with:
-        name: docker.pkg.github.com/jessedearing/debug
-        username: jessedearing
-        password: ${{ secrets.GH_REGISTRY_PUSH_TOKEN }}
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+        repository: jessedearing/debug/debug
+        tag_with_ref: false
