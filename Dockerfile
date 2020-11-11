@@ -1,7 +1,4 @@
-FROM edenhill/kafkacat:1.6.0 AS kafkacat
-
 FROM archlinux:latest
-COPY --from=kafkacat /usr/bin/kafkacat /usr/bin/kafkacat
 RUN curl -L https://www.archlinux.org/mirrorlist/\?country\=US\&protocol=http\&protocol\=https\&ip_version\=4 | sed -e 's/^#Server/Server/' -e '/^#/d' | tee /etc/pacman.d/mirrorlist && \
     pacman -Syu --noconfirm && \
     ln -snf /usr/share/zoneinfo/US/Pacific /etc/localtime && \
