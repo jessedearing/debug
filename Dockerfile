@@ -13,10 +13,11 @@ RUN curl -L https://www.archlinux.org/mirrorlist/\?country\=US\&protocol=http\&p
     rm -rf /var/cache/pacman/*
 
 
-RUN echo set -o vi >> /etc/zsh/zshrc
-RUN echo set -o interactivecomments >> /etc/zsh/zshrc
-RUN echo alias l="ls -la" >> /etc/zsh/zshrc
-RUN echo PATH=$PATH:/opt/kafka/bin >> /etc/zsh/zshrc
-RUN mkdir -p /var/run/tmux
+RUN echo set -o vi | tee -a /etc/zsh/zshrc && \
+    echo set -o interactivecomments | tee -a /etc/zsh/zshrc && \
+    echo alias l="ls -la" | tee -a /etc/zsh/zshrc && \
+    echo PATH=$PATH:/opt/kafka/bin | tee -a /etc/zsh/zshrc && \
+    echo export KAFKA_HEAP_OPTS="-Xmx1024m -Xms1024m" | tee -a /etc/zsh/zshrc && \
+    mkdir -p /var/run/tmux
 ENV SHELL=/usr/bin/zsh
 ENTRYPOINT ["/usr/bin/zsh"]
