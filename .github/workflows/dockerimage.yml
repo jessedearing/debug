@@ -28,4 +28,4 @@ jobs:
         push: true
         tags: |
           jessedearing/debug:latest
-          gchr.io/jessedearing/debug:latest
+          ghcr.io/jessedearing/debug:latest
