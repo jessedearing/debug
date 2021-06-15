@@ -3,9 +3,6 @@ RUN curl -L https://www.archlinux.org/mirrorlist/\?country\=US\&protocol=http\&p
     pacman -Syu --noconfirm && \
     ln -snf /usr/share/zoneinfo/US/Pacific /etc/localtime && \
     pacman --noconfirm -S dnsutils netcat curl neovim zsh jq aws-cli kubectl jre-openjdk tcpdump postgresql && \
-    curl -L https://github.com/moparisthebest/wireguard-proxy/releases/download/v0.1.1/wireguard-proxy-v0.1.1-x86_64-unknown-linux-gnu.tar.gz -o wireguard-proxy.tar.gz && \
-    tar xzvf wireguard-proxy.tar.gz && \
-    mv wireguard-proxy* /usr/local/bin && \
     curl -LO https://apache.osuosl.org/kafka/2.6.0/kafka_2.13-2.8.0.tgz && \
     tar xzvf kafka_2.13-2.8.0.tgz && \
     mv kafka_2.13-2.8.0 /opt/kafka && \
