@@ -11,14 +11,14 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Push to Docker Hub
-      uses: docker/build-push-action@v1
+      uses: docker/build-push-action@v2
       with:
         username: jessedearing
         password: ${{ secrets.DOCKER_PASSWORD }}
         repository: jessedearing/debug
         tag_with_ref: true
     - name: Push to GitHub Registry
-      uses: docker/build-push-action@v1
+      uses: docker/build-push-action@v2
       with:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
