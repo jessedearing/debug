@@ -3,7 +3,7 @@ RUN curl -L https://www.archlinux.org/mirrorlist/\?country\=US\&protocol=http\&p
     pacman -Syu --noconfirm && \
     ln -snf /usr/share/zoneinfo/US/Pacific /etc/localtime && \
     pacman --noconfirm -S dnsutils netcat curl neovim zsh jq aws-cli kubectl jre-openjdk tcpdump postgresql && \
-    curl -LO https://apache.osuosl.org/kafka/2.6.0/kafka_2.13-2.8.0.tgz && \
+    curl -LO https://apache.osuosl.org/kafka/2.8.0/kafka_2.13-2.8.0.tgz && \
     tar xzvf kafka_2.13-2.8.0.tgz && \
     mv kafka_2.13-2.8.0 /opt/kafka && \
     rm -rf kafka_2.13-2.8.0.tgz && \
