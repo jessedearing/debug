@@ -2,7 +2,7 @@ FROM archlinux:latest
 RUN curl -L https://www.archlinux.org/mirrorlist/\?country\=US\&protocol=http\&protocol\=https\&ip_version\=4 | sed -e 's/^#Server/Server/' -e '/^#/d' | tee /etc/pacman.d/mirrorlist && \
     pacman -Syu --noconfirm && \
     ln -snf /usr/share/zoneinfo/US/Pacific /etc/localtime && \
-    pacman --noconfirm -S dnsutils netcat curl neovim zsh jq aws-cli kubectl jre-openjdk tcpdump && \
+    pacman --noconfirm -S dnsutils netcat curl neovim zsh jq aws-cli kubectl jre-openjdk tcpdump postgresql && \
     curl -L https://github.com/moparisthebest/wireguard-proxy/releases/download/v0.1.1/wireguard-proxy-v0.1.1-x86_64-unknown-linux-gnu.tar.gz -o wireguard-proxy.tar.gz && \
     tar xzvf wireguard-proxy.tar.gz && \
     mv wireguard-proxy* /usr/local/bin && \
