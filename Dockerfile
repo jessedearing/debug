@@ -2,7 +2,7 @@ FROM archlinux:latest
 RUN curl -L https://www.archlinux.org/mirrorlist/\?country\=US\&protocol=http\&protocol\=https\&ip_version\=4 | sed -e 's/^#Server/Server/' -e '/^#/d' | tee /etc/pacman.d/mirrorlist && \
     pacman -Syu --noconfirm && \
     ln -snf /usr/share/zoneinfo/US/Pacific /etc/localtime && \
-    pacman --noconfirm -S dnsutils netcat curl neovim zsh jq aws-cli kubectl jre-openjdk tcpdump postgresql && \
+    pacman --noconfirm -S dnsutils netcat curl neovim zsh jq aws-cli kubectl jre-openjdk tcpdump postgresql rclone && \
     curl -LO https://apache.osuosl.org/kafka/3.1.0/kafka_2.13-3.1.0.tgz && \
     tar xzvf kafka_2.13-3.1.0.tgz && \
     mv kafka_2.13-3.1.0 /opt/kafka && \
