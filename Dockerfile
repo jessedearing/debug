@@ -1,15 +1,32 @@
-FROM archlinux:latest
+FROM docker.io/library/archlinux:latest as builder
+ADD ./grpcurl /grpcurl
+RUN curl -L https://www.archlinux.org/mirrorlist/\?country\=US\&protocol=http\&protocol\=https\&ip_version\=4 | sed -e 's/^#Server/Server/' -e '/^#/d' | tee /etc/pacman.d/mirrorlist && \
+    pacman -Syu --noconfirm && \
+    ln -snf /usr/share/zoneinfo/US/Pacific /etc/localtime && \
+    pacman --noconfirm -S binutils fakeroot go git gcc && \
+    useradd -m debugbuilder && \
+    chown -R debugbuilder grpcurl && \
+    cd grpcurl && \
+    su -s /bin/bash -c makepkg debugbuilder && \
+    mv ./*.zst ./grpcurl.zst
+
+FROM docker.io/library/archlinux:latest
+ENV KAFKA_VERSION=3.1.2
 RUN curl -L https://www.archlinux.org/mirrorlist/\?country\=US\&protocol=http\&protocol\=https\&ip_version\=4 | sed -e 's/^#Server/Server/' -e '/^#/d' | tee /etc/pacman.d/mirrorlist && \
     pacman -Syu --noconfirm && \
     ln -snf /usr/share/zoneinfo/US/Pacific /etc/localtime && \
     pacman --noconfirm -S dnsutils netcat curl neovim zsh jq aws-cli kubectl jre-openjdk tcpdump postgresql rclone && \
-    curl -LO https://apache.osuosl.org/kafka/3.1.0/kafka_2.13-3.1.0.tgz && \
-    tar xzvf kafka_2.13-3.1.0.tgz && \
-    mv kafka_2.13-3.1.0 /opt/kafka && \
-    rm -rf kafka_2.13-3.1.0.tgz && \
+    curl -LO https://apache.osuosl.org/kafka/$KAFKA_VERSION/kafka_2.13-$KAFKA_VERSION.tgz && \
+    tar xzvf kafka_2.13-$KAFKA_VERSION.tgz && \
+    mv kafka_2.13-$KAFKA_VERSION /opt/kafka && \
+    rm -rf kafka_2.13-$KAFKA_VERSION.tgz && \
     rm -rf /var/cache/pacman/*
 
-RUN echo set -o vi | tee -a /etc/zsh/zshrc && \
+COPY --from=builder /grpcurl/grpcurl.zst /grpcurl.zst
+
+RUN pacman --noconfirm -U /grpcurl.zst && \
+    rm -f /grpcurl.zst && \
+    echo set -o vi | tee -a /etc/zsh/zshrc && \
     echo set -o interactivecomments | tee -a /etc/zsh/zshrc && \
     echo alias l="ls -la" | tee -a /etc/zsh/zshrc && \
     echo PATH=$PATH:/opt/kafka/bin | tee -a /etc/zsh/zshrc && \
