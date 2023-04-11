@@ -9,20 +9,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v3
     - name: Login to Dockerhub
-      uses: docker/login-action@v1
+      uses: docker/login-action@v2
       with:
         username: jessedearing
         password: ${{ secrets.DOCKER_PASSWORD }}
     - name: Login to GitHub Registry
-      uses: docker/login-action@v1
+      uses: docker/login-action@v2
       with:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
         registry: ghcr.io
     - name: Push to Docker Hub and GitHub Registry
-      uses: docker/build-push-action@v2
+      uses: docker/build-push-action@v4
       with:
         context: .
         dockerfile: Dockerfile
