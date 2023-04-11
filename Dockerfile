@@ -1,3 +1,4 @@
+LABEL "dev.jesse.builddate=2023-04-11T11:14-07:00"
 FROM docker.io/library/archlinux:latest as builder
 ADD ./grpcurl /grpcurl
 RUN curl -L https://www.archlinux.org/mirrorlist/\?country\=US\&protocol=http\&protocol\=https\&ip_version\=4 | sed -e 's/^#Server/Server/' -e '/^#/d' | tee /etc/pacman.d/mirrorlist && \
@@ -11,7 +12,7 @@ RUN curl -L https://www.archlinux.org/mirrorlist/\?country\=US\&protocol=http\&p
     mv ./*.zst ./grpcurl.zst
 
 FROM docker.io/library/archlinux:latest
-ENV KAFKA_VERSION=3.1.2
+ENV KAFKA_VERSION=3.4.0
 RUN curl -L https://www.archlinux.org/mirrorlist/\?country\=US\&protocol=http\&protocol\=https\&ip_version\=4 | sed -e 's/^#Server/Server/' -e '/^#/d' | tee /etc/pacman.d/mirrorlist && \
     pacman -Syu --noconfirm && \
     ln -snf /usr/share/zoneinfo/US/Pacific /etc/localtime && \
