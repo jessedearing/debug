@@ -11,7 +11,7 @@ makedepends=('go')
 source=(
 	"$pkgname-$pkgver.tar.gz::https://github.com/fullstorydev/grpcurl/archive/v$pkgver.tar.gz"
 )
-sha384sums=('c112bc13214ad6985ab5b7130a28a2eb7ed786ab7f2ca3c008f7050740c8caf1f1a2665cf624430434ffa5a23a11a723')
+sha384sums=('a167798406f73a2949d1951dc8665086ceb3e67cf9c9b2d28288683e37a4e203f6df471998872098bb88407bdf23545d')
 # really, `grpcurl-bin` should be conflicting with us instead of the oposite
 conflicts=('grpcurl-bin')
 
