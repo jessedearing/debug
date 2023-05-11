@@ -33,6 +33,4 @@ jobs:
         push: true
         tags: |
           docker.io/jessedearing/debug:latest
-          docker.io/jessedearing/debug:${{ github.sha }}
           ghcr.io/jessedearing/debug:latest
-          ghcr.io/jessedearing/debug:${{ github.sha }}
