@@ -23,6 +23,7 @@ RUN curl -L https://www.archlinux.org/mirrorlist/\?country\=US\&protocol=http\&p
     rm -rf /var/cache/pacman/*
 
 COPY --from=builder /grpcurl/grpcurl.zst /grpcurl.zst
+COPY tools/check-clock-skew.sh /usr/local/bin/check-clock-skew.sh
 
 RUN pacman --noconfirm -U /grpcurl.zst && \
     rm -f /grpcurl.zst && \
