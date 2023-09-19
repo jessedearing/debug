@@ -25,14 +25,5 @@ RUN curl -L https://www.archlinux.org/mirrorlist/\?country\=US\&protocol=http\&p
 COPY --from=builder /grpcurl/grpcurl.zst /grpcurl.zst
 COPY tools/check-clock-skew.sh /usr/local/bin/check-clock-skew.sh
 
-RUN pacman --noconfirm -U /grpcurl.zst && \
-    rm -f /grpcurl.zst && \
-    echo set -o vi | tee -a /etc/zsh/zshrc && \
-    echo set -o interactivecomments | tee -a /etc/zsh/zshrc && \
-    echo alias l="ls -la" | tee -a /etc/zsh/zshrc && \
-    echo PATH=$PATH:/opt/kafka/bin | tee -a /etc/zsh/zshrc && \
-    echo export KAFKA_HEAP_OPTS="-Xmx1024m -Xms1024m" | tee -a /etc/zsh/zshrc && \
-    mkdir -p /var/run/tmux && \
-    echo "security.protocol=SSL" | tee kafka-client.properties
 ENV SHELL=/usr/bin/zsh
 ENTRYPOINT ["/usr/bin/zsh"]
