@@ -11,7 +11,7 @@ RUN curl -L https://www.archlinux.org/mirrorlist/\?country\=US\&protocol=http\&p
     mv ./*.zst ./grpcurl.zst
 
 FROM docker.io/library/archlinux:latest
-ENV KAFKA_VERSION=3.4.0
+ENV KAFKA_VERSION=3.5.1
 RUN curl -L https://www.archlinux.org/mirrorlist/\?country\=US\&protocol=http\&protocol\=https\&ip_version\=4 | sed -e 's/^#Server/Server/' -e '/^#/d' | tee /etc/pacman.d/mirrorlist && \
     pacman -Syu --noconfirm && \
     ln -snf /usr/share/zoneinfo/US/Pacific /etc/localtime && \
