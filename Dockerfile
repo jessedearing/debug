@@ -11,6 +11,7 @@ RUN curl -L https://www.archlinux.org/mirrorlist/\?country\=US\&protocol=http\&p
     rm -rf /var/cache/pacman/*
 
 COPY tools/check-clock-skew.sh /usr/local/bin/check-clock-skew.sh
+COPY etc/profile.d/set-vi.sh /etc/profile.d/set-vi.sh
 
 ENV SHELL=/usr/bin/zsh
 ENTRYPOINT ["/usr/bin/zsh"]
