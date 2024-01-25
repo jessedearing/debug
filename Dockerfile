@@ -1,3 +1,8 @@
+FROM docker.io/library/golang:1 AS http-server
+WORKDIR /app
+COPY go-httpserver .
+RUN go build .
+
 FROM docker.io/library/archlinux:latest
 ENV KAFKA_VERSION=3.6.1
 RUN curl -L https://www.archlinux.org/mirrorlist/\?country\=US\&protocol=http\&protocol\=https\&ip_version\=4 | sed -e 's/^#Server/Server/' -e '/^#/d' | tee /etc/pacman.d/mirrorlist && \
@@ -11,6 +16,7 @@ RUN curl -L https://www.archlinux.org/mirrorlist/\?country\=US\&protocol=http\&p
     rm -rf /var/cache/pacman/*
 
 COPY tools/check-clock-skew.sh /usr/local/bin/check-clock-skew.sh
+COPY --from=http-server /app/go-httpserver /usr/local/bin/go-httpserver
 COPY etc/profile.d/set-vi.sh /etc/profile.d/set-vi.sh
 
 ENV SHELL=/usr/bin/zsh
