@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"net/http"
 	"net/http/httputil"
@@ -10,8 +11,19 @@ import (
 )
 
 func main() {
+	var (
+		tlsCertificate string
+		tlsKey         string
+		port           string
+	)
+
+	flag.StringVar(&tlsCertificate, "cert-file", "", "Specify the certificate file")
+	flag.StringVar(&tlsKey, "cert-key", "", "Specify the certificate key")
+	flag.StringVar(&port, "port", ":8080", "The port to run the server on")
+
+	flag.Parse()
 	hs := http.Server{
-		Addr: ":8080",
+		Addr: port,
 	}
 
 	mux := http.NewServeMux()
@@ -26,5 +38,11 @@ func main() {
 		w.WriteHeader(http.StatusOK)
 		w.Write([]byte("👋 Hello🏻"))
 	})
-	log.Error(hs.ListenAndServe())
+	if tlsCertificate != "" {
+		log.Info("Serving TLS")
+		log.Error(hs.ListenAndServeTLS(tlsCertificate, tlsKey))
+	} else {
+		log.Info("Serving plain HTTP")
+		log.Error(hs.ListenAndServe())
+	}
 }
