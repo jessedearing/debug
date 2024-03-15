@@ -22,12 +22,11 @@ RUN ln -snf /usr/share/zoneinfo/US/Pacific /etc/localtime && \
   echo "set editing-mode vi" | tee -a /etc/inputrc && \
   echo "set keymap vi" | tee -a /etc/inputrc && \
   useradd -u 5000 -m ubuntu && \
-  echo "ubuntu  ALL=(ALL) NOPASSWD: ALL" | tee /etc/sudoers.d/ubuntu-root && \
-  echo "set -o vi" | tee /home/ubuntu/.zshrc && \
-  chown -R ubuntu:ubuntu /home/ubuntu
+  echo "ubuntu  ALL=(ALL) NOPASSWD: ALL" | tee /etc/sudoers.d/ubuntu-root
 
 COPY tools/check-clock-skew.sh /usr/local/bin/check-clock-skew.sh
 COPY --from=http-server /app/go-httpserver /usr/local/bin/go-httpserver
+COPY --chown=5000:5000 zshrc /home/ubuntu/.zshrc
 WORKDIR /home/ubuntu
 
 ENV SHELL=/usr/bin/zsh
