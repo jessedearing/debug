@@ -20,5 +20,3 @@ function mysql_setup() {
   password=$MYSQL_PASSWORD
   EOF
 }
-
-mysql_setup
