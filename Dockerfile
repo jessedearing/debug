@@ -23,7 +23,7 @@ RUN ln -snf /usr/share/zoneinfo/US/Pacific /etc/localtime && \
   echo "set keymap vi" | tee -a /etc/inputrc && \
   useradd -u 5000 -m ubuntu && \
   echo "ubuntu  ALL=(ALL) NOPASSWD: ALL" | tee /etc/sudoers.d/ubuntu-root && \
-  echo "set -o vi" | tee /home/ubuntu/.zshrc &&
+  echo "set -o vi" | tee /home/ubuntu/.zshrc && \
   chown -R ubuntu:ubuntu /home/ubuntu
 
 COPY tools/check-clock-skew.sh /usr/local/bin/check-clock-skew.sh
