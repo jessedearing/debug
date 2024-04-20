@@ -4,7 +4,7 @@ COPY go-httpserver .
 RUN go build .
 
 FROM docker.io/library/ubuntu:latest
-ENV KAFKA_VERSION=3.6.1
+ENV KAFKA_VERSION=3.7.0
 RUN ln -snf /usr/share/zoneinfo/US/Pacific /etc/localtime && \
   apt update && \
   apt install -y zsh mariadb-client postgresql-client dnsutils netcat jq sshpass \
