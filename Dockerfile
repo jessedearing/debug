@@ -7,8 +7,9 @@ FROM docker.io/library/ubuntu:latest
 ENV KAFKA_VERSION=3.7.0
 RUN ln -snf /usr/share/zoneinfo/US/Pacific /etc/localtime && \
   apt update && \
-  apt install -y zsh mariadb-client postgresql-client dnsutils netcat jq sshpass \
-  neovim curl awscli gnupg openjdk-21-jre-headless tcpdump rclone sysstat sudo && \
+  apt install -y zsh mariadb-client postgresql-client dnsutils netcat jq \
+  neovim curl awscli gnupg openjdk-21-jre-headless tcpdump rclone sysstat \
+  sudo sshpass cloudsql-proxy && \
   curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.29/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg && \
   echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.29/deb/ /' | tee /etc/apt/sources.list.d/kubernetes.list && \
   apt update && \
