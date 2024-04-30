@@ -24,7 +24,6 @@ RUN ln -snf /usr/share/zoneinfo/US/Pacific /etc/localtime && \
   rm -rf /var/lib/dpkg/info/* && \
   echo "set editing-mode vi" | tee -a /etc/inputrc && \
   echo "set keymap vi" | tee -a /etc/inputrc && \
-  useradd -u 5000 -m ubuntu && \
   echo "ubuntu  ALL=(ALL) NOPASSWD: ALL" | tee /etc/sudoers.d/ubuntu-root
 
 COPY tools/check-clock-skew.sh /usr/local/bin/check-clock-skew.sh
@@ -34,5 +33,5 @@ COPY --chown=5000:5000 zshrc /home/ubuntu/.zshrc
 WORKDIR /home/ubuntu
 
 ENV SHELL=/usr/bin/zsh
-USER 5000:5000
+USER 1000:1000
 ENTRYPOINT ["/usr/bin/zsh"]
