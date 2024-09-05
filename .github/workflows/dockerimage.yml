@@ -36,9 +36,10 @@ jobs:
         push: true
         tags: |
           ghcr.io/jessedearing/debug:latest
-    - name: Generate artifact attestation
-      uses: actions/attest-build-provenance@v1
-      with:
-        subject-name: ghcr.io/jessedearing/debug
-        subject-digest: ${{ steps.push.outputs.digest }}
-        push-to-registry: true
+    - name: Install cosign
+      uses: sigstore/cosign-installer@v3.6.0
+    - name: Sign images with GitHub OIDC
+      env:
+        DIGEST: ${{ steps.push.outputs.digest }}
+      run: |
+        cosign sign --yes ghcr.io/jessedearing/debug:latest
