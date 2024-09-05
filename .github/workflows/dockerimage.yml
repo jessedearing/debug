@@ -42,4 +42,4 @@ jobs:
       env:
         DIGEST: ${{ steps.push.outputs.digest }}
       run: |
-        cosign sign --yes ghcr.io/jessedearing/debug:latest
+        cosign sign --yes ghcr.io/jessedearing/debug:latest@${DIGEST}
