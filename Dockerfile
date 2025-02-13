@@ -6,14 +6,14 @@ COPY go-httpserver .
 RUN go build .
 
 FROM docker.io/library/ubuntu:latest
-ENV KAFKA_VERSION=3.8.0
+ENV KAFKA_VERSION=3.9.0
 RUN ln -snf /usr/share/zoneinfo/US/Pacific /etc/localtime && \
   apt update && \
   apt install -y zsh mariadb-client postgresql-client dnsutils netcat-traditional jq \
   neovim curl gnupg openjdk-21-jre-headless tcpdump rclone sysstat socat conntrack \
   sudo sshpass iproute2 unzip && \
-  curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.29/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg && \
-  echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.29/deb/ /' | tee /etc/apt/sources.list.d/kubernetes.list && \
+  curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.32/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg && \
+  echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.32/deb/ /' | tee /etc/apt/sources.list.d/kubernetes.list && \
   apt update && \
   apt install -y kubectl && \
   curl -LO https://apache.osuosl.org/kafka/$KAFKA_VERSION/kafka_2.13-$KAFKA_VERSION.tgz && \
